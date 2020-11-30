@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "typeRoots" : ["node_modules/@types", "/types"],
+    
+                          
+     
+      "jsx": "react",                          
+      "noEmit": true,                        
+      
+      "strict": true,      
+     
+     
+      "moduleResolution": "node",              
+      "baseUrl": "./",                         
+      
+      "esModuleInterop": true                
+     
+    },
+    "exclude": [
+      "node_modules"
+    ]
+  }
