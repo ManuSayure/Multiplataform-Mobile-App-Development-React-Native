@@ -4,6 +4,7 @@ import {Card,  ListItem, Avatar} from 'react-native-elements';
 import { LEADERS} from '../assets/shared/leaders';
 import {connect} from 'react-redux';
 import {baseUrl} from '../assets/shared/baseUrl';
+import { Loading } from './Loading';
 
 const mapStateToProps = state => {
     return {
@@ -87,12 +88,38 @@ class About extends Component{
    
 
     render(){
-        return(
-            <ScrollView>  
-                <History/>                
-                <RenderLeaders leaders={this.props.leaders.leaders}/>                
-            </ScrollView>
+        if(this.props.leaders.isLoading){
+            return(
+                <ScrollView>
+                    <History/>  
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Loading/>           
 
-        );
+                    </Card>
+
+                </ScrollView>
+            );
+        }else if(this.props.leaders.errMess){
+            return(
+                <ScrollView>
+                    <History/>  
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Text>{this.props.leaders.errMess}</Text>        
+                    </Card>
+                </ScrollView>
+            );
+        }
+        else{
+            return(
+                <ScrollView>  
+                    <History/>                
+                    <RenderLeaders leaders={this.props.leaders.leaders}/>                
+                </ScrollView>
+    
+            );
+        }
+        
     }
 }; export default  connect(mapStateToProps)(About);

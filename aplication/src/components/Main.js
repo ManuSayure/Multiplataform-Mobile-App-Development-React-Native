@@ -15,6 +15,7 @@ import Dishdetail from './Dishdetail';
 import Home from './Home';
 import Contact from './Contact';
 import About from './About';
+import Reservtion from './Reservation';
 import {fetchDishes} from '../redux/action-creators/DishesActionCreators';
 import {fetchComments} from '../redux/action-creators/CommentsActionCreators';
 import {fetchLeaders} from '../redux/action-creators/LeadersActionCreators';
@@ -154,6 +155,34 @@ function ContactScreen({ navigation }) {
   </Stack.Navigator>   
   );
 };
+function ReservtionScreen({ navigation }) {  
+  return (
+    <Stack.Navigator              
+    screenOptions={{
+      headerStyle: {
+        backgroundColor:"#512DA8",
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+         color: "#fff" ,
+          fontWeight: 'bold',
+      },
+}} >
+              <Stack.Screen
+                name="Reservation"
+                component={Reservtion}
+                options={{ 
+                            title: 'Reservvation',
+                            headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                            onPress={ () => navigation.toggleDrawer() } /> )  
+              
+               }}
+              />
+  </Stack.Navigator>   
+  );
+}
+
+
 const CustomDrawerContentComponent = (props) => (
   <ScrollView>
     <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -219,6 +248,16 @@ const MainNavigatior = ({navigation}) =>{
         drawerIcon: ({ tintColor, focused }) => (
           <Icon
             name='info-circle'
+            type='font-awesome'            
+            size={24}
+            color={tintColor}
+          />
+        ), 
+      }}/>
+       <Drawer.Screen name="Reservation" component={ReservtionScreen} options={{title:'Reserve Table', drawerLabel:'Reserve Table',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon
+            name='cutlery'
             type='font-awesome'            
             size={24}
             color={tintColor}
