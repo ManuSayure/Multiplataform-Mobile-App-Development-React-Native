@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Text, View} from 'react-native';
-import {Card} from 'react-native-elements';
-import { DISHES } from '../assets/shared/dishes';
+import {Card, Icon} from 'react-native-elements';
+
 import {image} from '../assets/images/alberto.png';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import {COMMENTS} from '../assets/shared/comments';
@@ -13,17 +13,16 @@ const mapStateToProps = state =>{
         dishes:state.dishes,
         comments:state.comments
     }
-}
+};
 
 const RenderDish = (props) => {
     const dish = props.dish;
-    console.log({image});
+
     console.log(props);
     if(dish != null){
         return(
            
-            <Card           
-            >
+            <Card key={dish.id} >
             <Card.Title>{dish.name}</Card.Title>
             <Card.Image source={{uri: baseUrl + dish.image}} />
                 <Text style={{margin:10}}>
@@ -35,7 +34,7 @@ const RenderDish = (props) => {
                     name={ props.favorite ? 'heart' : 'heart-o'} // coração preenchido ou vazio
                     type='font-awesome'
                     color='#f50'
-                    onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
+                    onPress={() => props.favorite ? console.log('Already favorite') : props.onPress(dish.id)}
                     />
             </Card>
 
@@ -48,12 +47,18 @@ const RenderDish = (props) => {
 };
 const RenderComments = (props) =>{
     const comments = props.comments;
-    const renderCommentItem = ({index, item}) => {
-        <View key={index} style={{margin:10}}>
-            <Text style={{fontSize:14}}>{item.comment}</Text>
-            <Text style={{fontSize:12}}>{item.rating}</Text>
-            <Text style={{fontSize:12}}>{'-- ' + item.author + ', ' + item.date}</Text>
-        </View>       
+    const renderCommentItem = ({item, index}) => {
+        return(
+            <View key={index} style={{margin:10}}>
+                <Text style={{fontSize:14}}>{item.comment}</Text>
+                <Text style={{fontSize:12}}>{item.rating}</Text>
+                <Text style={{fontSize:12}}>{'-- ' + item.author + ', ' + 
+                 new Intl.DateTimeFormat('en-US', {year:'numeric', month:'short', day:'2-digit'})
+                 .format( new Date(Date.parse(item.date )))} </Text>
+            </View> 
+
+        );
+              
     }
     return(
         <Card>
@@ -61,7 +66,7 @@ const RenderComments = (props) =>{
             <FlatList
                 data={comments}
                 renderItem={renderCommentItem}
-                keyExtractor={item=> item.id.toSting()}            
+                keyExtractor={item => item.id.toString()}            
             />
         </Card>
 
@@ -75,12 +80,13 @@ class Dishdetail extends Component{
         this.state = {           
             favorite:[]
         };
-        console.log(props);
+        console.log(props, this.state.favorite);
        
     }
     markFavorite(dishId){
+         console.log(this.state.favorite, dishId);
         this.setState({
-            favorite:[... this.state.favorite, dishId ]
+            favorite: this.state.favorite.concat( dishId) 
         });
     }
 
@@ -99,10 +105,10 @@ class Dishdetail extends Component{
         return(
             <ScrollView>
                 <RenderDish  
-                    dish={this.state.dishes.dishes[+dishId]}
+                    dish={this.props.dishes.dishes[+dishId]}
                     favorite = {this.state.favorite.some(el=> el === dishId)} //checa se o dishId ja existe na lista de favorites
-                    onPress = {this.markFavorite(dishId)} />
-                <RenderComments comments={this.state.comments.comments.filter((comment) => comment.dishId === dishId)}/>
+                    onPress = {(dishId) => this.markFavorite(dishId)} />
+                <RenderComments comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)}/>
             </ScrollView>
             
         );

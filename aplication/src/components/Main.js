@@ -15,10 +15,10 @@ import Dishdetail from './Dishdetail';
 import Home from './Home';
 import Contact from './Contact';
 import About from './About';
-import { fetchDishes} from '../redux/action-creators/DishesActionCreators';
-import { fetchComments} from '../redux/action-creators/DishesActionCreators';
-import { fetchLeaders} from '../redux/action-creators/DishesActionCreators';
-import { fetchPromotions} from '../redux/action-creators/DishesActionCreators';
+import {fetchDishes} from '../redux/action-creators/DishesActionCreators';
+import {fetchComments} from '../redux/action-creators/CommentsActionCreators';
+import {fetchLeaders} from '../redux/action-creators/LeadersActionCreators';
+import {fetchPromotions} from '../redux/action-creators/PromotionsActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -56,18 +56,18 @@ function MenuScreen({ navigation }) {
                 component={Menu}
                 options={{  
                   title: 'Menu',
-                  headerLeft:  <Icon name="menu" size={24}  color= 'white'
-                                onPress={ () => navigation.toggleDrawer() } />
+                  headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                  onPress={ () => navigation.toggleDrawer() } /> )
                  }}
               />
               <Stack.Screen
                 name="Dishdetail"
                 component={Dishdetail}
-                options={{ title: 'Dishdetail',
-                            headerLeft: <Icon name="menu" size={24} color= 'white'
-                              onPress={ () => navigation.toggleDrawer() } />                      
-                           
-                 }}
+                options={{ 
+                              title: 'Dishdetail',
+                              headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                                                   onPress={ () => navigation.toggleDrawer() } /> )                       
+                }}
               />
   </Stack.Navigator>
   
@@ -93,9 +93,11 @@ function HomeScreen({ navigation }) {
               <Stack.Screen
                 name="Home"
                 component={Home}
-                options={{ title: 'Home', 
-                headerLeft: <Icon name="menu" size={24} color= 'white'
-                onPress={ () => navigation.toggleDrawer() } />   }}
+                options={{ 
+                            title: 'Home', 
+                            headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                            onPress={ () => navigation.toggleDrawer() } /> )  
+                }}
               />
   </Stack.Navigator>   
   );
@@ -116,9 +118,10 @@ function AboutScreen({ navigation }) {
               <Stack.Screen
                 name="About"
                 component={About}
-                options={{ title: 'About',
-                           headerLeft: <Icon name="menu" size={24} color= 'white'
-                                          onPress={ () => navigation.toggleDrawer() } />  
+                options={{ 
+                            title: 'About',
+                            headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                            onPress={ () => navigation.toggleDrawer() } /> )  
               
                }}
               />
@@ -142,9 +145,10 @@ function ContactScreen({ navigation }) {
               <Stack.Screen
                 name="Contact"
                 component={Contact}
-                options={{ title: 'Contact',
-                           headerLeft: <Icon name="menu" size={24} color= 'white'
-                            onPress={ () => navigation.toggleDrawer() } />  
+                options={{ 
+                            title: 'Contact',
+                            headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                            onPress={ () => navigation.toggleDrawer() } /> ) 
               
                  }}/>
   </Stack.Navigator>   

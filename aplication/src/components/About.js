@@ -5,25 +5,26 @@ import { LEADERS} from '../assets/shared/leaders';
 import {connect} from 'react-redux';
 import {baseUrl} from '../assets/shared/baseUrl';
 
-const mapStoreToProps = state =>{
-    return{
-        leaders: state.leaders
+const mapStateToProps = state => {
+    return {
+       leaders: state.leaders
     }
-}
+  }
 
 const RenderLeaders = (props) =>{
+    console.log(props);
         
-        const renderleader = (leader, index) => {
+        const renderleader = ({item, index}) => {
             return(
                 <ListItem 
                     key={index} 
                     bottomDivider  
                 >
                     <Image source={ {uri: baseUrl + item.image}} />
-                    <Avatar  source={require('../assets/images/alberto.png') && { uri: '../assets/images/alberto.png' }}/>
+                    <Avatar source={ {uri: baseUrl + item.image}} />
                     <ListItem.Content>
-                        <ListItem.Title>{leader.name}</ListItem.Title>
-                        <ListItem.Subtitle>{leader.description}</ListItem.Subtitle>
+                        <ListItem.Title>{item.name}</ListItem.Title>
+                        <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
                     </ListItem.Content>
                     <ListItem.Chevron />
                 </ListItem>  
@@ -33,9 +34,9 @@ const RenderLeaders = (props) =>{
        <Card>
            <Card.Title>Corporate Leadership</Card.Title>
            <FlatList
-                data={this.props.leaders.leaders}
+                data={props.leaders}
                 renderItem={renderleader}
-                keyExtractor={leader => leader.id.toString()} 
+                keyExtractor={item => item.id.toString()} 
 
             />
 
@@ -79,15 +80,19 @@ const styles = StyleSheet.create({
   })
 
 class About extends Component{
+    constructor(props){
+        super(props);
+        console.log(props);
+    }
    
 
     render(){
         return(
             <ScrollView>  
                 <History/>                
-                <RenderLeaders leaders={this.state.leaders}/>                
+                <RenderLeaders leaders={this.props.leaders.leaders}/>                
             </ScrollView>
 
         );
     }
-};export default  connect(mapStateToProps)(About);
+}; export default  connect(mapStateToProps)(About);

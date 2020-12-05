@@ -1,5 +1,6 @@
 import * as ActionTypes from '../ActionTypes';
 import {baseUrl}  from '../../assets/shared/baseUrl';
+import fetch from 'cross-fetch';
 
 export const fetchComments = () => (dispatch) => {
     return fetch(baseUrl + 'comments')
@@ -24,4 +25,8 @@ export const fetchComments = () => (dispatch) => {
 export const commentsFailed = (errmess) => ({
     type: ActionTypes.COMMENTS_FAILED,
     payload: errmess
+});
+export const addComments = (comments) => ({
+  type: ActionTypes.ADD_COMMENTS,
+  payload: comments
 });

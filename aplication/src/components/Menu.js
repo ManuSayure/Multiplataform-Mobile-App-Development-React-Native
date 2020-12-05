@@ -1,54 +1,41 @@
 
-import {  FlatList, View, Image } from 'react-native';
+import {  FlatList, View, Image, Text } from 'react-native';
 import { ListItem,  Avatar } from 'react-native-elements';
 import React, { Component } from 'react';
-import { DISHES } from '../assets/shared/dishes';
+import {connect} from 'react-redux';
+import {baseUrl} from '../assets/shared/baseUrl';
 
-const RenderComments = (props) =>{
-  const comments = props.comments;
-  const renderCommentItem = ({index, item}) => {
-      <View key={index} style={{margin:10}}>
-          <Text style={{fontSize:14}}>{item.comment}</Text>
-          <Text style={{fontSize:12}}>{item.rating}</Text>
-          <Text style={{fontSize:12}}>{'-- ' + item.author + ', ' + item.date}</Text>
-      </View>       
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
   }
-  return(
-      <Card>
-          <Card.Title>Comments</Card.Title>
-          <FlatList
-              data={comments}
-              renderItem={renderCommentItem}
-              keyExtractor={item=> item.id.toSting()}            
-          />
-      </Card>
-
-  );
-
-};
-
+}
 const RenderMenu = (props) => {
-  const dishes = props.dishes;
-  const renderMenuItem =({index, item}) => {
-        <ListItem 
-            key={index} 
-            bottomDivider  
-            onPress={ () => this.props.navigation.navigate('Dishdetail', { dishId: item.id })}>
-            <Avatar source={{uri: item.image}} />
-            <ListItem.Content>
-              <ListItem.Title>{item.name}</ListItem.Title>
-              <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron />
-        </ListItem>           
+  const navigate = props.navigate;
+  
+  const renderMenuItem =({item, index}) => {
+      return(
+              <ListItem 
+                    key={index} 
+                    bottomDivider  
+                    onPress={ () =>{navigate('Dishdetail', { dishId: item.id })} }>
+                    <Avatar source={{uri:baseUrl + item.image}} />
+                    <ListItem.Content>
+                      <ListItem.Title>{item.name}</ListItem.Title>
+                      <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                    </ListItem.Content>
+                    <ListItem.Chevron />
+                </ListItem>   
+      );
+                
         
 
   }      
   return(  
     <FlatList
-          data={this.props.dishes}
+          data={props.dishes}
           renderItem={renderMenuItem}
-          keyExtractor={item => item.id.toString()} 
+          keyExtractor={item => item.id.toString()}          
       
       />  
   );
@@ -59,9 +46,7 @@ const RenderMenu = (props) => {
 class Menu extends Component{
   constructor(props){
     super(props);
-    this.state={
-      dishes:DISHES
-    };
+    console.log(props.navigation.navigate);
   }
   static navigationOptions = {
     title: 'Menu'
@@ -69,8 +54,11 @@ class Menu extends Component{
   render(){   
     
     return(
-      <RenderMenu dishes = {this.state.dishes}/>      
+      <View>
+        <RenderMenu dishes = {this.props.dishes.dishes} navigate = { this.props.navigation.navigate} />
+      </View>
+            
     );
   }  
    
-}; export default Menu;
+}; export default connect(mapStateToProps)(Menu);

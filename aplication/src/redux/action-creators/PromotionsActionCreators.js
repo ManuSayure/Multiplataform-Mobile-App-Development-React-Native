@@ -1,5 +1,6 @@
 import * as ActionTypes from '../ActionTypes';
 import {baseUrl}  from '../../assets/shared/baseUrl';
+import fetch from 'cross-fetch';
 
 
 export const fetchPromotions = () => (dispatch) => {
@@ -26,15 +27,15 @@ export const fetchPromotions = () => (dispatch) => {
 };
 
 export const promotionsLoading = () => ({
-    type: ActionTypes.PROMOS_LOADING
+    type: ActionTypes.PROMOTIONS_LOADING
 });
 
 export const promotionsFailed = (errmess) => ({
-    type: ActionTypes.PROMOS_FAILED,
+    type: ActionTypes.PROMOTIONS_FAILED,
     payload: errmess
 });
 
 export const addPromotions = (promos) => ({
-    type: ActionTypes.ADD_PROMOS,
+    type: ActionTypes.ADD_PROMOTIONS,
     payload: promos
 });

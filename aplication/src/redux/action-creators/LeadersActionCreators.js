@@ -1,5 +1,6 @@
 import * as ActionTypes from '../ActionTypes';
 import {baseUrl}  from '../../assets/shared/baseUrl';
+import fetch from 'cross-fetch';
 
 export const fetchLeaders = () => (dispatch) => {
     
