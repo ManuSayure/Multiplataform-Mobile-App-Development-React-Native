@@ -172,7 +172,7 @@ function ReservtionScreen({ navigation }) {
                 name="Reservation"
                 component={Reservtion}
                 options={{ 
-                            title: 'Reservvation',
+                            title: 'Reserve a Table',
                             headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
                             onPress={ () => navigation.toggleDrawer() } /> )  
               
@@ -254,7 +254,7 @@ const MainNavigatior = ({navigation}) =>{
           />
         ), 
       }}/>
-       <Drawer.Screen name="Reservation" component={ReservtionScreen} options={{title:'Reserve Table', drawerLabel:'Reserve Table',
+       <Drawer.Screen name="Reserve a Table" component={ReservtionScreen} options={{title:'Reserve Table', drawerLabel:'Reserve Table',
         drawerIcon: ({ tintColor, focused }) => (
           <Icon
             name='cutlery'
