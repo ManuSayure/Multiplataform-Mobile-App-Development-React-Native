@@ -8,6 +8,7 @@ import { createDrawerNavigator, DrawerItemList} from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { HeaderBackButton } from '@react-navigation/stack';
 
 /**Components */
 import Menu from './Menu'; 
@@ -20,6 +21,7 @@ import {fetchDishes} from '../redux/action-creators/DishesActionCreators';
 import {fetchComments} from '../redux/action-creators/CommentsActionCreators';
 import {fetchLeaders} from '../redux/action-creators/LeadersActionCreators';
 import {fetchPromotions} from '../redux/action-creators/PromotionsActionCreators';
+
 
 const mapStateToProps = state => {
   return {
@@ -58,7 +60,9 @@ function MenuScreen({ navigation }) {
                 options={{  
                   title: 'Menu',
                   headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
-                  onPress={ () => navigation.toggleDrawer() } /> )
+                  onPress={ () => navigation.toggleDrawer() } /> ),
+                  headerRight: () => ( <Icon name="menu" size={24} color= 'white'
+                  onPress={ () => navigation.goBack() } /> )
                  }}
               />
               <Stack.Screen
@@ -66,8 +70,8 @@ function MenuScreen({ navigation }) {
                 component={Dishdetail}
                 options={{ 
                               title: 'Dishdetail',
-                              headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
-                                                   onPress={ () => navigation.toggleDrawer() } /> )                       
+                             
+                                       
                 }}
               />
   </Stack.Navigator>
@@ -172,6 +176,7 @@ function ReservtionScreen({ navigation }) {
                 name="Reservation"
                 component={Reservtion}
                 options={{ 
+                           
                             title: 'Reserve a Table',
                             headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
                             onPress={ () => navigation.toggleDrawer() } /> )  

@@ -6,6 +6,7 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {baseUrl} from '../assets/shared/baseUrl';
 import {postFavorite} from '../redux/action-creators/FavoritesActionCreators';
+import {postComment} from '../redux/action-creators/CommentsActionCreators'
 
 const mapStateToProps = state =>{
     return{
@@ -16,6 +17,7 @@ const mapStateToProps = state =>{
 };
 const mapDispatchToProps = dispatch =>({
     postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+    postComment : (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 });
 
 const RenderDish = (props) => {
@@ -112,8 +114,14 @@ const RenderComments = (props) =>{
             comment:'',
         });
     };
-    handleComment(){
-        console.log(JSON.stringify(this.state)); 
+    handleComment(){        
+        console.log(JSON.stringify(this.state));
+        this.props.postComment( 
+            this.props.route.params.dishId, 
+            this.state.rating,
+            this.state.author, 
+            this.state.comment);
+            alert('Comentário enviado com sucesso!');
     }
     toggleModal = () =>{
         this.setState({openModal:!this.state.openModal})
@@ -131,13 +139,13 @@ const RenderComments = (props) =>{
         const { params } = this.props.route.params;
         title: 'Dish Details';
     }
-    render(){                 
+    render(){                
                
         
         
               
         //const { navigation } = this.props;
-        console.log(this.props);
+        console.log(this.props.postComment);
         console.log(this.state.openModal);
         const dishId = this.props.route.params.dishId;
         return(
@@ -146,7 +154,7 @@ const RenderComments = (props) =>{
                     dish={this.props.dishes.dishes[+dishId]}
                     favorite = {this.props.favorites.some(el=> el === dishId)} //checa se o dishId ja existe na lista de favorites
                     onPress = {(dishId) => this.markFavorite(dishId)}
-                    toggleModal={this.toggleModal}                             
+                    toggleModal={ () => this.toggleModal()}                             
             
                 />
                 {this.state.openModal ?
@@ -172,7 +180,7 @@ const RenderComments = (props) =>{
                                 placeholder="Author"
                                 leftIcon={{ type: 'font-awesome', name: 'user' }}
                                 style={styles}
-                                onChangeText={value => this.setState({ comment: value })}
+                                onChangeText={value => this.setState({ author: value })}
                                 />                     
                                                         
                             <Input
