@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, Switch, Button, Modal } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import { Card } from 'react-native-elements';
+import { Card, } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -84,8 +84,7 @@ class Reservation extends Component{
                         mode="date"
                         placeholder="select date"
                         format="YYYY-MM-DD"
-                        minDate="2016-05-01"
-                        maxDate="2016-06-01"
+                        minDate="2020-12-05"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{

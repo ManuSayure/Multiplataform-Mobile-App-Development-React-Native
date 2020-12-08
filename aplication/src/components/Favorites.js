@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {Text, View, FlatList} from 'react-native';
 import {ListItem} from 'react-native-elements';
+import {connect} from 'react-redux';
+import { deleteFavorite } from '../redux/action-creators/FavoritesActionCreators';
+import Swipeout from 'react-native-swipeout';
 
 const mapStateToProps = state => {
     return {
@@ -8,6 +11,9 @@ const mapStateToProps = state => {
       favorites: state.favorites
     }
 };
+const mapDispatchToProps = dispatch =>({
+    deleteFavorite: (dishId) = dispatch(deleteFavorite(dishId)),
+});
 
 class Favorites extends Component {
     constructor(props) {
@@ -18,10 +24,18 @@ class Favorites extends Component {
         title:'My Favorites'
     }
     render() { 
+        const rigthButton = [
+            { 
+                text: 'Delete', 
+                type: 'delete',
+                onPress: () => this.props.deleteFavorite(item.id)
+            }
+        ]
         const {navigate} = this.props.navigation;
         const renderFavorites = ({item, index}) =>{
             return ( 
-                <ListItem
+                <Swipeout right={rigthButton} autoClose={true}>
+                    <ListItem
                     key={index}
                     title={item.name}
                     subtitle={item.descriotion}
@@ -29,6 +43,8 @@ class Favorites extends Component {
                     onPress={()=>navigate('Dishedetail', {dishId:item.id})}
                     leftAvatar={{source:{uri:baseUrl + item.image}}}
                  />
+                </Swipeout>
+                
              );
         }
         if(this.props.dishes.isLoading){
@@ -55,4 +71,4 @@ class Favorites extends Component {
     }
 }
  
-export default Favorites;
+export default connect( mapStateToProps, mapDispatchToProps)(Favorites);
