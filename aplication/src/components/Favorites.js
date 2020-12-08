@@ -24,28 +24,30 @@ class Favorites extends Component {
         title:'My Favorites'
     }
     render() { 
+        const createTwoButtonAlert = 
+            Alert.alert(
+                "Alert Title",
+                "My Alert Msg",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                  },
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+              );
+
+        
+        
+    
         const rigthButton = [
             { 
                 text: 'Delete', 
                 type: 'delete',
-                onPress: () =>{
-                    Alert.alert(
-                        'Delete Favorite?',
-                        'Are you sure you wish to delete the favorite dish ' + item.name + '?',
-                        [
-                            {
-                                text:'Cancel',
-                                onPress: ()=> console.log(item.name + 'Not deleted'),
-                                style:'cancel'
-                            },
-                            {
-                                text:'Ok',
-                                onPress: () => this.props.deleteFavorite(item.id)
-
-                            }
-                        ],
-                        {cancelable:false}
-                    )
+                onPress: () =>{ createTwoButtonAlert
+                   
                 } 
             }
         ]

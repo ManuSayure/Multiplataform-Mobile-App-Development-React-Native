@@ -101,15 +101,7 @@ class Reservation extends Component{
                         }}
                          onDateChange={(date) => {this.setState({date: date})}}
       />
-                    <DateTimePicker
-                        style={{width: 200}}
-                        testID="dateTimePicker"
-                        value={this.state.date}
-                        mode={'date'}
-                        is24Hour={true}
-                        display="default"
-                        onChange={onChange}
-                        />
+                    
                 </View>
                 <View style={style.formRow}>
                     <Button

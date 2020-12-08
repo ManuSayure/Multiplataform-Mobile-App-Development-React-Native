@@ -17,6 +17,7 @@ import Home from './Home';
 import Contact from './Contact';
 import About from './About';
 import Reservtion from './Reservation';
+import Favorite from './Favorites';
 import {fetchDishes} from '../redux/action-creators/DishesActionCreators';
 import {fetchComments} from '../redux/action-creators/CommentsActionCreators';
 import {fetchLeaders} from '../redux/action-creators/LeadersActionCreators';
@@ -159,7 +160,7 @@ function ContactScreen({ navigation }) {
   </Stack.Navigator>   
   );
 };
-function ReservtionScreen({ navigation }) {  
+function ReservationScreen({ navigation }) {  
   return (
     <Stack.Navigator              
     screenOptions={{
@@ -178,6 +179,33 @@ function ReservtionScreen({ navigation }) {
                 options={{ 
                            
                             title: 'Reserve a Table',
+                            headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                            onPress={ () => navigation.toggleDrawer() } /> )  
+              
+               }}
+              />
+  </Stack.Navigator>   
+  );
+}
+function FavoriteScreen({ navigation }) {  
+  return (
+    <Stack.Navigator              
+    screenOptions={{
+      headerStyle: {
+        backgroundColor:"#512DA8",
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+         color: "#fff" ,
+          fontWeight: 'bold',
+      },
+}} >
+              <Stack.Screen
+                name="Favorites"
+                component={Reservtion}
+                options={{ 
+                           
+                            title: 'My Favorites',
                             headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
                             onPress={ () => navigation.toggleDrawer() } /> )  
               
@@ -259,10 +287,20 @@ const MainNavigatior = ({navigation}) =>{
           />
         ), 
       }}/>
-       <Drawer.Screen name="Reserve a Table" component={ReservtionScreen} options={{title:'Reserve Table', drawerLabel:'Reserve Table',
+       <Drawer.Screen name="Reserve a Table" component={ReservationScreen} options={{title:'Reserve Table', drawerLabel:'Reserve Table',
         drawerIcon: ({ tintColor, focused }) => (
           <Icon
             name='cutlery'
+            type='font-awesome'            
+            size={24}
+            color={tintColor}
+          />
+        ), 
+      }}/>
+      <Drawer.Screen name="My Favorites" component={FavoriteScreen} options={{title:'My Favorites', drawerLabel:'My Favorites',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon
+            name='heart'
             type='font-awesome'            
             size={24}
             color={tintColor}
