@@ -3,7 +3,9 @@ import {Text, View, FlatList, Alert} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {connect} from 'react-redux';
 import { deleteFavorite } from '../redux/action-creators/FavoritesActionCreators';
-import Swipeout from 'react-native-swipeout';
+//import Swipeout from 'react-native-swipeout';
+import Swipeout from 'rc-swipeout';
+
 
 const mapStateToProps = state => {
     return {
@@ -11,10 +13,9 @@ const mapStateToProps = state => {
       favorites: state.favorites
     }
 };
-const mapDispatchToProps = dispatch =>({
-    deleteFavorite: (dishId) = dispatch(deleteFavorite(dishId)),
-});
-
+const mapDispatchToProps = dispatch => ({
+    deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId))
+})
 class Favorites extends Component {
     constructor(props) {
         super(props);
@@ -24,30 +25,27 @@ class Favorites extends Component {
         title:'My Favorites'
     }
     render() { 
-        const createTwoButtonAlert = 
-            Alert.alert(
-                "Alert Title",
-                "My Alert Msg",
-                [
-                  {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                  },
-                  { text: "OK", onPress: () => console.log("OK Pressed") }
-                ],
-                { cancelable: false }
-              );
-
         
-        
-    
         const rigthButton = [
             { 
                 text: 'Delete', 
                 type: 'delete',
-                onPress: () =>{ createTwoButtonAlert
-                   
+                onPress: () =>{
+                        Alert.alert(                       
+                      
+                        'Delete Favorite?',
+                        'Are you sure you wish to delete the favorite dish ' + item.name + '?',
+                        [
+                            {
+                              text: "Cancel",
+                              onPress: () => console.log("Cancel Pressed"),
+                             
+                            },
+                            { text: "OK", onPress: () => { this.props.deleteFavorite(item.id); console.log("OK Pressed")}}
+                          ],
+                       
+                        {cancelable:false}
+                    )
                 } 
             }
         ]

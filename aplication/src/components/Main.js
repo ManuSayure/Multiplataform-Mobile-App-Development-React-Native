@@ -17,7 +17,7 @@ import Home from './Home';
 import Contact from './Contact';
 import About from './About';
 import Reservtion from './Reservation';
-import Favorite from './Favorites';
+import Favorites from './Favorites';
 import {fetchDishes} from '../redux/action-creators/DishesActionCreators';
 import {fetchComments} from '../redux/action-creators/CommentsActionCreators';
 import {fetchLeaders} from '../redux/action-creators/LeadersActionCreators';
@@ -202,7 +202,7 @@ function FavoriteScreen({ navigation }) {
 }} >
               <Stack.Screen
                 name="Favorites"
-                component={Reservtion}
+                component={Favorites}
                 options={{ 
                            
                             title: 'My Favorites',
