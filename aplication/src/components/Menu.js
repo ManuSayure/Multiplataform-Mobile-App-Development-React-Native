@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {baseUrl} from '../assets/shared/baseUrl';
 import { Loading } from './Loading';
+import * as Animatable from 'react-native-animatable';  
 
 const mapStateToProps = state => {
   return {
@@ -22,8 +23,10 @@ const RenderMenu = (props) => {
                     onPress={ () =>{navigate('Dishdetail', { dishId: item.id })} }>
                     <Avatar source={{uri:baseUrl + item.image}} />
                     <ListItem.Content>
-                      <ListItem.Title>{item.name}</ListItem.Title>
-                      <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                      <Animatable.View animation="fadeInRightBig" duration={2000}> 
+                        <ListItem.Title>{item.name}</ListItem.Title>
+                        <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                      </Animatable.View>                      
                     </ListItem.Content>
                     <ListItem.Chevron />
                 </ListItem>   

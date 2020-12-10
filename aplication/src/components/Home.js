@@ -75,7 +75,7 @@ class Home extends Component{
             this.animetedValue,
             {
                 toValue:8,
-                duration:8000,
+                duration:10000,
                 easing:Easing.linear
             }
         ).start(() => this.animate());

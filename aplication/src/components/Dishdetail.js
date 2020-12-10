@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {baseUrl} from '../assets/shared/baseUrl';
 import {postFavorite} from '../redux/action-creators/FavoritesActionCreators';
 import {postComment} from '../redux/action-creators/CommentsActionCreators'
+import * as Animatable from 'react-native-animatable';  
 
 const mapStateToProps = state =>{
     return{
@@ -80,14 +81,17 @@ const RenderComments = (props) =>{
               
     }
     return(
-        <Card>
-            <Card.Title>Comments</Card.Title>
-            <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
-                keyExtractor={item => item.id.toString()}            
-            />
-        </Card>
+        <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+            <Card>
+                <Card.Title>Comments</Card.Title>
+                <FlatList
+                    data={comments}
+                    renderItem={renderCommentItem}
+                    keyExtractor={item => item.id.toString()}            
+                />
+            </Card>
+        </Animatable.View>
+       
 
     );
 
@@ -210,8 +214,6 @@ const RenderComments = (props) =>{
                     
             </Modal> : null}
                 
-                
-                   
                 <RenderComments comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)}/>
                 
             </ScrollView>

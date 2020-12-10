@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Text, ScrollView, FlatList, Image, StyleSheet} from 'react-native';
 import {Card,  ListItem, Avatar} from 'react-native-elements';
-import { LEADERS} from '../assets/shared/leaders';
 import {connect} from 'react-redux';
 import {baseUrl} from '../assets/shared/baseUrl';
 import { Loading } from './Loading';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -91,31 +91,37 @@ class About extends Component{
         if(this.props.leaders.isLoading){
             return(
                 <ScrollView>
-                    <History/>  
-                    <Card>
-                        <Card.Title>Corporate Leadership</Card.Title>
-                        <Loading/>           
+                    <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                        <History/>  
+                        <Card>
+                            <Card.Title>Corporate Leadership</Card.Title>
+                            <Loading/>           
 
-                    </Card>
+                        </Card>
+                    </Animatable.View>      
 
                 </ScrollView>
             );
         }else if(this.props.leaders.errMess){
             return(
                 <ScrollView>
-                    <History/>  
-                    <Card>
-                        <Card.Title>Corporate Leadership</Card.Title>
-                        <Text>{this.props.leaders.errMess}</Text>        
-                    </Card>
+                     <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                        <History/>  
+                        <Card>
+                            <Card.Title>Corporate Leadership</Card.Title>
+                            <Text>{this.props.leaders.errMess}</Text>        
+                        </Card>
+                    </Animatable.View>                    
                 </ScrollView>
             );
         }
         else{
             return(
                 <ScrollView>  
-                    <History/>                
-                    <RenderLeaders leaders={this.props.leaders.leaders}/>                
+                     <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                        <History/>                
+                        <RenderLeaders leaders={this.props.leaders.leaders}/> 
+                    </Animatable.View>                                   
                 </ScrollView>
     
             );
