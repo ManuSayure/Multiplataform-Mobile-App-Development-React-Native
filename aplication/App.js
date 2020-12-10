@@ -7,9 +7,15 @@ import {Provider} from 'react-redux';
 const store = ConfigureStore();
 export default function App() {
   return (
-    <Provider store={store}>
-        <Main/>
-    </Provider>
+    
+      <Provider store={store}> 
+        
+          <Main/> 
+        
+         
+      </Provider>
+    
+    
   
   );
 }

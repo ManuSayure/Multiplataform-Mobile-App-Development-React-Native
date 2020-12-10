@@ -3,9 +3,9 @@ import {Text, View, FlatList, Alert} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {connect} from 'react-redux';
 import { deleteFavorite } from '../redux/action-creators/FavoritesActionCreators';
-//import Swipeout from 'react-native-swipeout';
-import Swipeout from 'rc-swipeout';
-
+import Swipeout from 'react-native-swipeout';
+//import Swipeout from 'react-native-swipe-out';
+import {baseUrl} from '../assets/shared/baseUrl';
 
 const mapStateToProps = state => {
     return {
@@ -39,9 +39,13 @@ class Favorites extends Component {
                             {
                               text: "Cancel",
                               onPress: () => console.log("Cancel Pressed"),
-                             
+                              style:'cancel'
+                              
                             },
-                            { text: "OK", onPress: () => { this.props.deleteFavorite(item.id); console.log("OK Pressed")}}
+                            { text: "OK", 
+                            onPress: () => { this.props.deleteFavorite(item.id); console.log("OK Pressed")},
+                           
+                        }
                           ],
                        
                         {cancelable:false}
