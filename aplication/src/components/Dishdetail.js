@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import {Modal, Text, View, StyleSheet} from 'react-native';
+import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert, PanResponder } from 'react-native';
 import {Card, Icon, Rating, Input, Button} from 'react-native-elements';
 
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
@@ -20,43 +20,69 @@ const mapDispatchToProps = dispatch =>({
     postFavorite: (dishId) => dispatch(postFavorite(dishId)),
     postComment : (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 });
+const recognizeDrag = ({moveX, moveY, dx, dy}) => {
+    if(dx < -200){
+        return true;
+    }else{
+        return false;
+    }
+};
+const pandResponder = PanResponder.create({
+    onStartShouldSetPanResponder: (e , gestureState) => {
+        return true;
+    },
+    onPanResponderEnd: (e, gestureState) => {
+        console.log("pan responder end", gestureState);
+        if (recognizeDrag(gestureState))
+            Alert.alert(
+                'Add Favorite',
+                'Are you sure you wish to add ' + dish.name + ' to favorite?',
+                [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => {props.favorite ? console.log('Already favorite') : props.onPress()}},
+                ],
+                { cancelable: false }
+            );
+
+        return true;
+    }
+})
 
 const RenderDish = (props) => {
     const dish = props.dish;
 
     console.log(props.favorite);
+
     if(dish != null){
         return(
+            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}
+            {...panResponder.panHandlers}>
+                <Card key={dish.id} >
+                    <Card.Title>{dish.name}</Card.Title>
+                    <Card.Image source={{uri: baseUrl + dish.image}} />
+                    <Text style={{margin:10}}> {dish.description}  </Text>
+                    <View style={styles.formRow}>
+                        <Icon
+                            styles={{}}
+                            raised
+                            reverse
+                            name={ props.favorite ? 'heart' : 'heart-o'} // coração preenchido ou vazio
+                            type='font-awesome'
+                            color='#f50'
+                            onPress={() => props.favorite ? console.log('Already favorite') : props.onPress(dish.id)}
+                            />
+                        <Icon
+                            raised
+                            reverse
+                            name={ 'pencil'} // lápis
+                            type='font-awesome'
+                            color='#f50'
+                            onPress={() => props.toggleModal()}
+                            /> 
+                    </View>          
+                </Card>
+            </Animatable.View>           
            
-            <Card key={dish.id} >
-            <Card.Title>{dish.name}</Card.Title>
-            <Card.Image source={{uri: baseUrl + dish.image}} />
-                <Text style={{margin:10}}>
-                    {dish.description}
-                </Text>
-                <View style={styles.formRow}>
-                    <Icon
-                        styles={{}}
-                        raised
-                        reverse
-                        name={ props.favorite ? 'heart' : 'heart-o'} // coração preenchido ou vazio
-                        type='font-awesome'
-                        color='#f50'
-                        onPress={() => props.favorite ? console.log('Already favorite') : props.onPress(dish.id)}
-                        />
-                    <Icon
-                        raised
-                        reverse
-                        name={ 'pencil'} // lápis
-                        type='font-awesome'
-                        color='#f50'
-                        onPress={() => props.toggleModal()}
-                        /> 
-                </View>               
-                    
-                    
-            </Card>
-
         );
     }else{
         return(
