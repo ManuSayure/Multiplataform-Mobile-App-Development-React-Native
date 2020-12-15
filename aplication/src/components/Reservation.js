@@ -17,7 +17,7 @@ class Reservation extends Component{
         this.state = {
             guests:1,
             smoking:false,
-            date: '',
+            date: new Date(),
             showModal:false,
 
         }
@@ -32,7 +32,7 @@ class Reservation extends Component{
 
     handleReservation(){
         console.log(JSON.stringify(this.state));         
-        this.toggleModal(); 
+        //this.toggleModal(); 
             
     };
     onChange = (event, selectedDate) => {
@@ -144,17 +144,17 @@ class Reservation extends Component{
                         <Text style={style.formLabel}>Date and Time</Text>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
-                            disableToolbar
-                            fullWidth
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="Date picker inline"
-                            value={this.state.date}
-                            onChange={(value) => this.setState({date:value})}
-                            KeyboardButtonProps = {{
-                                'aria-label': 'change date',
+                                disableToolbar
+                                fullWidth
+                                variant="inline"
+                                format="dd/MM/yyyy"
+                                margin="normal"
+                                id="date-picker-inline"
+                               // label="Date and Time"
+                                value={this.state.date}
+                                onChange={(value) => this.setState({date:value})}
+                                KeyboardButtonProps = {{
+                                    'aria-label': 'change date',
                             }}
                             />
                         </MuiPickersUtilsProvider>

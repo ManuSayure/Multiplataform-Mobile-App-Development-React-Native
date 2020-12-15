@@ -3,7 +3,7 @@ import {Text, View, FlatList, Alert} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {connect} from 'react-redux';
 import { deleteFavorite } from '../redux/action-creators/FavoritesActionCreators';
-import Swipeout from 'react-native-swipeout';
+//import Swipeout from 'react-native-swipeout';
 //import Swipeout from 'react-native-swipe-out';
 import {baseUrl} from '../assets/shared/baseUrl';
 import * as Animatable from 'react-native-animatable';  
