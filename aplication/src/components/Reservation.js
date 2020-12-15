@@ -3,13 +3,33 @@ import { Text, View, ScrollView, StyleSheet, Switch, Button, Modal, Alert } from
 import {Picker} from '@react-native-picker/picker';
 import { Card, } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
+
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Animatable from 'react-native-animatable';  
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { KeyboardDatePicker } from "@material-ui/pickers";
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 //import Button from 'material-ui/Button';
 
+const createThreeButtonAlert = () =>
+    Alert.alert(
+      "Alert Title",
+      "My Alert Msg",
+      [
+        {
+          text: "Ask me later",
+          onPress: () => console.log("Ask me later pressed")
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
 
 class Reservation extends Component{
     constructor(props){
@@ -52,12 +72,24 @@ class Reservation extends Component{
     toggleModal(){
         this.setState({showModal:!this.state.showModal})
     }
+    setDate = (event, date) => {
+        date = date || this.state.date;
+ 
+        this.setState({
+           date
+        });
+     }
     renderDatePicker = ({ input, defaultValue, meta: { touched, error } }) => (
         <DatePicker 
             errorText = {touched && error} 
             {...input}
             value = {input.value !== ''? new Date(input.value) : null}
-            onChange = {(event, value) => {console.log(value); input.onChange(value)}} />
+            //value = {this.state.date}
+            onChange = {(event, value) => 
+                                        {   console.log(value, input.value); 
+                                            input.onChange(value);
+                                            this.setState({date: new Date(value)})}
+                                        } />
     )
     ModalRender = () =>{
         return(
@@ -84,14 +116,14 @@ class Reservation extends Component{
                 </Modal>
         );
     };
-    AlertRender= () =>{
+    AlertRender = () =>{
         return(
-            Alert.alert(
-                
-                                   
-                          
-                'Delete Favorite?',
-                'Are you sure you wish to delete the favorite dish ' +  + '?',
+            alert(     
+
+                'Your Reservation?',
+                'Number of Guests: '+ this.state.guests ,
+                'Smoking? : ' + this.state.smoking? 'Yes':'No' ,
+                'Date and Time : '+ this.state.date,
                 [
                     {
                       text: "Cancel",
@@ -142,52 +174,23 @@ class Reservation extends Component{
                     </View>
                     <View style={style.formRow}>
                         <Text style={style.formLabel}>Date and Time</Text>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker
-                                disableToolbar
-                                fullWidth
-                                variant="inline"
-                                format="dd/MM/yyyy"
-                                margin="normal"
-                                id="date-picker-inline"
-                               // label="Date and Time"
-                                value={this.state.date}
-                                onChange={(value) => this.setState({date:value})}
-                                KeyboardButtonProps = {{
-                                    'aria-label': 'change date',
-                            }}
-                            />
-                        </MuiPickersUtilsProvider>
+                        <RNDateTimePicker mode="date" value={this.state.date} onChange={this.setDate} />
+                        <DateTimePicker 
+                            value={ this.state.date }
+                            mode='default'
+                            display='default'
+                            onChange={ date => this.setState({ date:date }) } />                  
                         
                                  
                     </View>
                     <View style={style.formRow}>
                         <Button                        
-                            onPress={  Alert.alert(
-                
-                                   
-                          
-                                'Delete Favorite?',
-                                'Are you sure you wish to delete the favorite dish ' +  + '?',
-                                [
-                                    {
-                                      text: "Cancel",
-                                      onPress: () => console.log("Cancel Pressed"),
-                                      style:'cancel'
-                                      
-                                    },
-                                    { text: "OK", 
-                                    onPress: () => { () => this.handleReservation(); console.log("OK Pressed")},
-                                   
-                                }
-                                  ],
-                               
-                                {cancelable:false}
-                            )}                        
+                            onPress={() => {this.AlertRender(), console.log('Reservado')}    }                   
                             title='Reserve'
                             color="#512DA8"
                             accessibilityLabel="Learn more about this purple button"
                         ></Button>
+                         
                     </View>
 
                 </Animatable.View>             

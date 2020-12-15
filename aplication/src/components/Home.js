@@ -76,6 +76,7 @@ class Home extends Component{
             {
                 toValue:8,
                 duration:10000,
+                useNativeDriver: true,
                 easing:Easing.linear
             }
         ).start(() => this.animate());

@@ -16,7 +16,7 @@ import Dishdetail from './Dishdetail';
 import Home from './Home';
 import Contact from './Contact';
 import About from './About';
-import Reservtion from './Reservation';
+import Reservation from './Reservation';
 import Favorites from './Favorites';
 import {fetchDishes} from '../redux/action-creators/DishesActionCreators';
 import {fetchComments} from '../redux/action-creators/CommentsActionCreators';
@@ -175,7 +175,7 @@ function ReservationScreen({ navigation }) {
 }} >
               <Stack.Screen
                 name="Reservation"
-                component={Reservtion}
+                component={Reservation}
                 options={{ 
                            
                             title: 'Reserve a Table',
