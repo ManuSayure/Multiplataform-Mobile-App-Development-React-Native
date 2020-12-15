@@ -58,7 +58,7 @@ class Favorites extends Component {
         const renderFavorites = ({item, index}) =>{
             return ( 
                
-                    <Swipeout right={rigthButton} autoClose={true}>
+                    //<Swipeout right={rigthButton} autoClose={true}>
                         <Animatable.View animation="fadeInRightBig" duration={2000}>
                             <ListItem
                                 key={index}
@@ -69,7 +69,7 @@ class Favorites extends Component {
                                 leftAvatar={{source:{uri:baseUrl + item.image}}}
                             />
                         </Animatable.View>                    
-                    </Swipeout>
+                   // </Swipeout>
                 
                 
                 

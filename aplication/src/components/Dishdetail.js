@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
-import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert, PanResponder } from 'react-native';
-import {Card, Icon, Rating, Input, Button} from 'react-native-elements';
+import { Text, View, Modal, StyleSheet, Button, Alert, PanResponder } from 'react-native';
+import {Card, Icon, Rating, Input} from 'react-native-elements';
 
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
