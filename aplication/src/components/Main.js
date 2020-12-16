@@ -22,6 +22,7 @@ import {fetchDishes} from '../redux/action-creators/DishesActionCreators';
 import {fetchComments} from '../redux/action-creators/CommentsActionCreators';
 import {fetchLeaders} from '../redux/action-creators/LeadersActionCreators';
 import {fetchPromotions} from '../redux/action-creators/PromotionsActionCreators';
+import Login from './Login';
 
 
 const mapStateToProps = state => {
@@ -214,6 +215,33 @@ function FavoriteScreen({ navigation }) {
   </Stack.Navigator>   
   );
 }
+function LoginScreen({ navigation }) {  
+  return (
+    <Stack.Navigator              
+    screenOptions={{
+      headerStyle: {
+        backgroundColor:"#512DA8",
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+         color: "#fff" ,
+          fontWeight: 'bold',
+      },
+}} >
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ 
+                           
+                            title: 'Login',
+                            headerLeft:() => ( <Icon name="menu" size={24} color= 'white'
+                            onPress={ () => navigation.toggleDrawer() } /> )  
+              
+               }}
+              />
+  </Stack.Navigator>   
+  );
+}
 
 
 const CustomDrawerContentComponent = (props) => (
@@ -301,6 +329,16 @@ const MainNavigatior = ({navigation}) =>{
         drawerIcon: ({ tintColor, focused }) => (
           <Icon
             name='heart'
+            type='font-awesome'            
+            size={24}
+            color={tintColor}
+          />
+        ), 
+      }}/>
+      <Drawer.Screen name="Login" component={LoginScreen} options={{title:'Login', drawerLabel:'Login',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon
+            name='sign-in'
             type='font-awesome'            
             size={24}
             color={tintColor}
