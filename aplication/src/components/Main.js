@@ -271,6 +271,16 @@ const MainNavigatior = ({navigation}) =>{
           
         }}
     >
+         <Drawer.Screen name="Login" component={LoginScreen} options={{title:'Login', drawerLabel:'Login',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon
+            name='sign-in'
+            type='font-awesome'            
+            size={24}
+            color={tintColor}
+          />
+        ), 
+      }}/>
         <Drawer.Screen name="Home" component={HomeScreen} 
           options={{
             title:'Home', 
@@ -335,16 +345,7 @@ const MainNavigatior = ({navigation}) =>{
           />
         ), 
       }}/>
-      <Drawer.Screen name="Login" component={LoginScreen} options={{title:'Login', drawerLabel:'Login',
-        drawerIcon: ({ tintColor, focused }) => (
-          <Icon
-            name='sign-in'
-            type='font-awesome'            
-            size={24}
-            color={tintColor}
-          />
-        ), 
-      }}/>
+     
       
      
     </Drawer.Navigator>

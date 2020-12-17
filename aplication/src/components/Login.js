@@ -1,8 +1,12 @@
 import React, { Component} from 'react';
 import {View, Button, StyleSheet} from 'react-native';
 import {Card, Icon, Input, CheckBox} from 'react-native-elements';
-import {SecureStore} from 'expo';
-import { styles } from '@material-ui/pickers/views/Calendar/Calendar';
+//import {SecureStore} from 'expo';
+import * as SecureStore from 'expo-secure-store';
+import { Permissions, Notifications } from 'expo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+//import { styles } from '@material-ui/pickers/views/Calendar/Calendar';
 
 class Login extends Component {
     constructor(props) {
@@ -40,14 +44,14 @@ class Login extends Component {
             <View style={styles.container}>
                 <Input
                     placeholder={'Username'}
-                    leftIcon={{type='font-awesome', name='user-o'}}
+                    leftIcon={{type:'font-awesome', name:'user-o'}}
                     onChangeText={(username)=> this.setState({username})}
                     value={this.state.username}
                     containerStyle={styles.formInput}
                 />
                 <Input
                     placeholder={"Password"}
-                    leftIcon={{type='font-awesome', name='key'}}
+                    leftIcon={{type:'font-awesome', name:'key'}}
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     containerStyle={styles.formInput}

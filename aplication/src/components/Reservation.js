@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, Switch, Button, Modal, Alert } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { Card, } from 'react-native-elements';
+import { Permissions, Notifications } from 'expo';
 import DatePicker from 'react-native-datepicker';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -41,6 +42,31 @@ class Reservation extends Component{
             showModal:false,
 
         }
+    }
+    async obtainNotificationPermission() {
+        let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to show notifications');
+            }
+        }
+        return permission;
+    };
+    async presentLocalNotification(date) {
+        await this.obtainNotificationPermission();
+        Notifications.presentLocalNotificationAsync({
+            title: 'Your Reservation',
+            body: 'Reservation for '+ date + ' requested',
+            ios: {
+                sound: true
+            },
+            android: {
+                sound: true,
+                vibrate: true,
+                color: '#512DA8'
+            }
+        });
     }
     static navigationOptions = {
         title: 'Reserve Table',
@@ -132,7 +158,7 @@ class Reservation extends Component{
                       
                     },
                     { text: "OK", 
-                    onPress: () => { () => this.handleReservation(); console.log("OK Pressed")},
+                    onPress: () => { () => this.handleReservation(); console.log("OK Pressed"), this.presentLocalNotification(this.state.date)},
                    
                 }
                   ],
