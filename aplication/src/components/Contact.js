@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Card, Text } from 'react-native-elements';
+import { Card, Text, Icon } from 'react-native-elements';
+import { MailComposer } from 'expo';
 
 class Constact extends Component{
+    sendMail(){
+        MailComposer.composeAsync({
+            recipients:[''],
+            subject:'Enquiry',
+            body:'To whom it may concern:'
+        })
+    }
 
     render(){
         return(
@@ -13,7 +21,13 @@ class Constact extends Component{
                 <Text style={styles.cardText}>HONG KONG</Text>  
                 <Text style={styles.cardText}>Tel: +852 1234 5678</Text>  
                 <Text style={styles.cardText}>Fax: +852 8765 4321</Text>  
-                <Text style={styles.cardText}>Email:confusion@food.net</Text>   
+                <Text style={styles.cardText}>Email:confusion@food.net</Text> 
+                <Button
+                    title='Send Email'
+                    buttonStyle={{backgroundColor:'#512DA8'}}
+                    icon ={ <Icon name='envelope-o' type='font-awesome' color='white'/>}
+                    onPress= {this.sendMail}
+                />  
                 
             </Card>
 
