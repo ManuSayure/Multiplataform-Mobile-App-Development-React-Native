@@ -144,7 +144,7 @@ class Reservation extends Component{
     };
     AlertRender = () =>{
         return(
-            alert(     
+            Alert.alert(     
 
                 'Your Reservation?',
                 'Number of Guests: '+ this.state.guests ,
@@ -210,7 +210,7 @@ class Reservation extends Component{
                                  
                     </View>
                     <View style={style.formRow}>
-                        <Button                        
+                        <Button                       
                             onPress={() => {this.AlertRender(), console.log('Reservado')}    }                   
                             title='Reserve'
                             color="#512DA8"

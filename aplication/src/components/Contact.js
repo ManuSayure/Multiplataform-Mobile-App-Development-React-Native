@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 import { Card, Text, Icon } from 'react-native-elements';
-import { MailComposer } from 'expo';
-
+//import { MailComposer } from 'expo';
+import * as MailComposer from 'expo-mail-composer';
 class Constact extends Component{
     sendMail(){
         MailComposer.composeAsync({
-            recipients:[''],
+            recipients:['scmanoela@gmail.com'],
             subject:'Enquiry',
             body:'To whom it may concern:'
         })
@@ -27,8 +27,7 @@ class Constact extends Component{
                     buttonStyle={{backgroundColor:'#512DA8'}}
                     icon ={ <Icon name='envelope-o' type='font-awesome' color='white'/>}
                     onPress= {this.sendMail}
-                />  
-                
+                />                 
             </Card>
 
         );

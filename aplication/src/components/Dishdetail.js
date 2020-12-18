@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Text, View, Modal, StyleSheet, Button, Alert, PanResponder } from 'react-native';
+import { Text, View, Modal, StyleSheet, Button, Alert, PanResponder,  Share } from 'react-native';
 import {Card, Icon, Rating, Input} from 'react-native-elements';
 
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
@@ -8,6 +8,7 @@ import {baseUrl} from '../assets/shared/baseUrl';
 import {postFavorite} from '../redux/action-creators/FavoritesActionCreators';
 import {postComment} from '../redux/action-creators/CommentsActionCreators'
 import * as Animatable from 'react-native-animatable';  
+import * as Sharing from 'expo-sharing';
 
 const mapStateToProps = state =>{
     return{
@@ -20,6 +21,16 @@ const mapDispatchToProps = dispatch =>({
     postFavorite: (dishId) => dispatch(postFavorite(dishId)),
     postComment : (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 });
+const shareDish = (title, message, url) => {
+    Share.share({
+        title: title,
+        message:title + ': ' + message + ' ' + url,
+        url: url
+    }, {
+        dialogTitle: 'Share ' + title
+    }
+    );
+}
 const recognizeDrag = ({moveX, moveY, dx, dy}) => {
     if(dx < -200){
         return true;
@@ -59,7 +70,7 @@ const pandResponder = PanResponder.create({
             );
         }
             
-        if(recognizeComment(gestureState)){
+       else if(recognizeComment(gestureState)){
             
             props.toggleModal();
         }
@@ -99,6 +110,15 @@ const RenderDish = (props) => {
                             type='font-awesome'
                             color='#f50'
                             onPress={() => props.toggleModal()}
+                            /> 
+                         <Icon
+                            raised
+                            reverse
+                            name={ 'share'}
+                            type='font-awesome'
+                            color='#51D2A8'
+                            style={}
+                            onPress={() => shareDish(dish.name, dish.description, baseUrl + dish.image)}
                             /> 
                     </View>          
                 </Card>
