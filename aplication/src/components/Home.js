@@ -17,38 +17,40 @@ const mapStateToProps = state => {
 
 const RenderItem = (props) => {
     const item = props.item;   
+    console.log(props);
     if(props.isLoading) {
         return(
             <Loading/>
         );
     }else if(props.errMess){
-        <View>
-            <Text>{props.errMess}</Text>
-        </View>
+        return(
+            <View>
+                <Text>{props.errMess}</Text>
+            </View>
+        );        
     }
-    if(item != null){    
+    else{
+        if(item != null){    
         
-        return(
-            
-            <Card key={item.id}>
-                 <Card.Image style={{width:"100%",height:100}}
-                        source={{uri:baseUrl + item.image}}>
-                    <Card.FeaturedTitle style={style.cardFeatureText}>{item.name}</Card.FeaturedTitle>
-                    <Card.FeaturedSubtitle style={style.cardFeatureText}>{item.designation}</Card.FeaturedSubtitle>  
+            return(
+                
+                <Card key={item.id}>
+                    <Card.Image style={{width:"100%",height:100}}
+                            source={{uri:baseUrl + item.image}}>
+                        <Card.FeaturedTitle style={style.cardFeatureText}>{item.name}</Card.FeaturedTitle>
+                        <Card.FeaturedSubtitle style={style.cardFeatureText}>{item.designation}</Card.FeaturedSubtitle>  
 
-                 </Card.Image>                                             
-            <Text
-                style={{margin: 10}}>
-                {item.description}</Text>
-        </Card>
-           
-
-        );
-
-    }else{
-        return(
-            <View></View>
-        );
+                    </Card.Image>                                             
+                <Text
+                    style={{margin: 10}}>
+                    {item.description}</Text>
+                </Card>            
+            )
+        }else{
+            return(
+                <View></View>
+            );
+        }
     }
 }
 const style = StyleSheet.create({

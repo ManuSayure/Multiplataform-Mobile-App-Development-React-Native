@@ -1,16 +1,18 @@
 import React, { Component} from 'react';
-import {View, Button, StyleSheet, LogBox} from 'react-native';
-import {Card, Icon, Input, CheckBox} from 'react-native-elements';
+import {View, Button, StyleSheet, LogBox, TouchableOpacity,
+    TouchableHighlight, Text, ScrollView} from 'react-native';
+import {Card, Icon, Input, CheckBox, Image} from 'react-native-elements';
 //import {SecureStore} from 'expo';
 import * as SecureStore from 'expo-secure-store';
 import * as Permissions from 'expo-permissions';
 import * as Notifications from 'expo-notifications';
 import * as ImagePicker from 'expo-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import { baseUrl } from '../assets/shared/baseUrl';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //import { styles } from '@material-ui/pickers/views/Calendar/Calendar';
+
 
 class LoginTab extends Component {
     constructor(props) {
@@ -29,7 +31,7 @@ class LoginTab extends Component {
                 this.setState({
                     username:userinfo.username,
                     password:userinfo.password,
-                    remember:true,
+                   remember:true,
                 });
             }
         })
@@ -114,7 +116,7 @@ class LoginTab extends Component {
                         titleStyle={{color:'blue'}}
                     />                   
                 </View>
-            </View>
+            </View>//<View></View>
           );
     }
 }
@@ -242,7 +244,7 @@ class RegisterTab extends Component {
 
                 </View>
 
-            </ScrollView> 
+            </ScrollView> //<View></View>
         );
     }
 }
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
         margin: 60
     }
 });
-const Login = createBottomTabNavigator({
+/*const Login2 = createBottomTabNavigator({
     Login: LoginTab,
     Register: RegisterTab
 }, {
@@ -283,7 +285,7 @@ const Login = createBottomTabNavigator({
         activeTintColor: '#ffffff',
         inactiveTintColor: 'gray'
     }
-});
+});*/
 function MyTabBar({ state, descriptors, navigation }) {
     return (
       <View style={{ flexDirection: 'row' }}>
@@ -318,6 +320,7 @@ function MyTabBar({ state, descriptors, navigation }) {
   
           return (
             <TouchableOpacity
+              key={options.tabBarTestID}
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -340,12 +343,20 @@ function MyTabBar({ state, descriptors, navigation }) {
   
   const Login = () =>  {
     return (
-      <NavigationContainer>
-        <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
+     
+        <Tab.Navigator
+         tabBarOptions= {{
+            activeBackgroundColor: '#9575CD',
+            inactiveBackgroundColor: '#D1C4E9',
+            activeTintColor: '#ffffff',
+            inactiveTintColor: 'gray'
+        }} 
+        // tabBar={props => <MyTabBar {...props} />}
+         >
           <Tab.Screen name="Login" component={LoginTab} />
           <Tab.Screen name="Register" component={RegisterTab} />
         </Tab.Navigator>
-      </NavigationContainer>
+      
     );
   } 
 export default Login;

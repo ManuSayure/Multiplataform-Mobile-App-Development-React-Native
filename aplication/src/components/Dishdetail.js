@@ -95,7 +95,7 @@ const RenderDish = (props) => {
                     <Text style={{margin:10}}> {dish.description}  </Text>
                     <View style={styles.formRow}>
                         <Icon
-                            styles={{}}
+                            //styles={{}}
                             raised
                             reverse
                             name={ props.favorite ? 'heart' : 'heart-o'} // coração preenchido ou vazio
@@ -117,7 +117,7 @@ const RenderDish = (props) => {
                             name={ 'share'}
                             type='font-awesome'
                             color='#51D2A8'
-                            style={}
+                            //style={}
                             onPress={() => shareDish(dish.name, dish.description, baseUrl + dish.image)}
                             /> 
                     </View>          

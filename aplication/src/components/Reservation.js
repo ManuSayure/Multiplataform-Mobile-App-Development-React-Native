@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, Switch, Button, Modal, Alert } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { Card, } from 'react-native-elements';
-import { Permissions, Notifications } from 'expo';
+//import { Permissions, Notifications } from 'expo';
 import DatePicker from 'react-native-datepicker';
+import * as Permissions from 'expo-permissions';
+import * as Notifications from 'expo-notifications';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Animatable from 'react-native-animatable';  
@@ -200,7 +202,7 @@ class Reservation extends Component{
                     </View>
                     <View style={style.formRow}>
                         <Text style={style.formLabel}>Date and Time</Text>
-                        <RNDateTimePicker mode="date" value={this.state.date} onChange={this.setDate} />
+                        
                         <DateTimePicker 
                             value={ this.state.date }
                             mode='default'
